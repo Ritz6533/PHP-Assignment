@@ -5,7 +5,7 @@ include './extras/dbconnect.php'; ?>
 
     <main><ul class="productList"><article>
 <?php
-    $query = $pdo->prepare('SELECT * FROM auction');
+    $query = $pdo->prepare('SELECT * FROM auction ORDER BY endDate ASC ');
 
     $query->execute();
 
