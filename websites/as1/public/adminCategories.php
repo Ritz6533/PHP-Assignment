@@ -4,7 +4,12 @@ include './extras/header.php';
 include './extras/dbconnect.php'; 
 if (isset($_SESSION['loggedin'])) {
     ?>
-     <a href="admincategories.php"> Admin Lists</a>
+    <main>
+
+    <h1>ADMIN LIST</h1>
+     <p style="float:right"><a href="deleteadmin.php">delete admins </a></p>
+     <p style="float:right"><a href="editadmin.php">edit </a></p>
+     <p style="float:right"><a href="addadmin.php">add </a></p>
 
     <ul>
     <?php
@@ -14,11 +19,10 @@ if (isset($_SESSION['loggedin'])) {
     
         foreach($query as $row){
     
-            echo '<h2>EMAIL--' . $row['email'] . '</h2>';
-            echo '<h2>USERNAME--' . $row['username'] . '</h2>';
-            echo '<h2>PASSWORD--' . $row['password'] . '</h2>';
-            echo '<li><a href="deleteadmin.php">delete </a></li>';
-            echo '<li><a href="editadmin.php">edit </a></li>';
+            echo '<br><p>EMAIL--' . $row['email'] . '</p>';
+            echo '<p>USERNAME--' . $row['username'] . '</p>';
+            echo '<p>PASSWORD--' . $row['password'] . '</p>';
+            
     
         }
     

@@ -6,9 +6,11 @@
 if (isset($_SESSION['loggedin'])) {
      session_destroy();//session willl destroyed
      unset($_SESSION['loggedin']);//unsetting session login
-     echo'<li><a href="categoryMenu.php"> go back</a></li>';
-
+     echo'<p>You have been sucessfully logged out!!</p1>';
+     echo'<a href="index.php"> home page</a>';
+     
 }
+else{
+     echo'<p>You are already logged out!!<p>';
+     echo'<a href="login.php"> login</a>';}
 ?>
-<h1>You have been sucessfully logged out!!</h1>
-<a href="index.php"> home page</a>

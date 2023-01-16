@@ -3,29 +3,46 @@ session_start();
 include './extras/header.php';
 include './extras/dbconnect.php'; 
 if (isset($_SESSION['loggedin'])) {
-    echo'<br><a href="categorylist.php"> category Menu</a>';
+
+?>
+    <main>
+
+<h1>EDIT CATEGORY LIST</h1>
+<p style="float:right;"><a href="addCategory.php"> Add category</p>
+<p style="float:right;"><a href="deleteCategory.php"> Delete </a></p>
+    <form action="editCategory.php" method="POST">
+    <label for = "category">Category Name</label>
+    <?php
+$stmt = $pdo->prepare('SELECT * FROM category');
+
+$stmt->execute();
+echo '<select name="categoryId">';
+while ($category =$stmt->fetch())
+{
+    echo '<option value="'. $category['categoryId']. '">'.$category['name'].'</option>';
+}
+echo '</select>';
 ?>
 
-    <form action="editcategory.php" method="POST">
-    <label>category ID</label> <input type="text" name="categoryId" />
-    <label>New category Name</label> <input type="text" name="name" />
-    <input type="submit" value="edit" name="edit" />
+    <label>New Category Name</label> <input type="text" name="name" />
+    <input type="submit" value="submit" name="submit" />
 </form>
-    <?php
 
-    if(isset($_POST['edit'])){
-        $query = $pdo->prepare('UPDATE category
-                            SET name = :name, categoryId = :categoryId
-                            WHERE categoryId = :categoryId');
+<?php
 
+if(isset($_POST['submit'])){
+    $query = $pdo->prepare('UPDATE category
+                        SET categoryId=:categoryId, name = :name
+                        WHERE categoryId = :categoryId');
 
-    $values = [
-        'categoryId' => $_POST['categoryId'],
-        'name' => $_POST['name']
-    ];
-    $query->execute($values);
-    echo'category sucessfully edited';
-    }
+$values = [
+    'categoryId' => $_POST['categoryId'],
+    'name' => $_POST['name']
+                
+];
+$query->execute($values);
+echo'Category Name is sucessfully updated';
+}
 
     }
  else {

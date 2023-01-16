@@ -3,7 +3,11 @@ session_start();
 include './extras/header.php';
 if (isset($_SESSION['loggedin'])) {
     ?>
+<main>
 
+<h1>ADD ADMIN </h1>
+ <p style="float:right"><a href="deleteadmin.php">delete </a></p>
+ <p style="float:right"><a href="editadmin.php">edit </a></p>
     <form action="addadmin.php" method="POST">
     <label>New username</label> <input type="text" name="username" />
     <label>Email</label> <input type="email" name="email"/>

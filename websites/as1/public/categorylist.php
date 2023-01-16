@@ -1,22 +1,28 @@
 <?php session_start();
 include './extras/header.php';
 include './extras/dbconnect.php'; ?>
+<main>
 
-<li><a href="addCategory.php"> Add category</a></li>
+<h1>CATEGORY LIST</h1>
+<p style="float:right;"><a href="addCategory.php"> Add category</p>
+<p style="float:right;"><a href="editCategory.php"> Edit </a></p>
+<p style="float:right;"><a href="deleteCategory.php"> Delete </a></p>
+
+
 
 <ul><main><ul class="productList"><article>
 <?php
-    $query = $pdo->prepare('SELECT * FROM category');
+    $query = $pdo->prepare('SELECT * ,(SELECT COUNT(CategoryId) FROM auction WHERE auction.CategoryId = category.CategoryId) as auctionObj
+    FROM category');
 
     $query->execute();
 
     foreach($query as $row){
 
-        echo '<h2>CATEGORY ID-      ' . $row['categoryId'] . '</h2>';
-        echo '<h3>CATEGORY NAME-    ' . $row['name'] . '</h3>';
-        echo '<li><a href="deletecategory.php">delete</a></li>';
-        echo '<li><a href="editcategory.php?categoryId='. $row['categoryId'].'">'. 'edit ' . $row['name']. '</a></li>';
-
+        
+        echo  $row['name'] ;
+        echo ' - '.$row['auctionObj'];
+        echo '<br>';
     }
 
 ?>

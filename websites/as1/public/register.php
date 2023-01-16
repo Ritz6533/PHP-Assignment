@@ -3,7 +3,9 @@ session_start();
 include './extras/header.php';
 include './extras/dbconnect.php';
 ?>
+<main>
 
+<h1>REGISTER NEW USER</h1>
 <form action="register.php" method="POST">
     <label>username</label> <input type="text" name="username" />
     <label>email</label> <input type="email" name="email"/>
@@ -13,23 +15,27 @@ include './extras/dbconnect.php';
 
 <?php
 if(isset($_POST['register'])){
-    $query = $pdo->prepare('INSERT INTO user(username, email, password)
-    VALUES( :username, :email, :password)');
+    $email = $_POST['email'];
 
-   // $password = $_POST['password'];
+    // check if email is valid
+        $stmt = $pdo->prepare('SELECT email FROM user WHERE email = :email');
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
 
-   // $hash = password_hash($password, PASSWORD_DEFAULT);
+        if ($user) {
+            echo '<p>The email address is already registered !</p>';
+        } else {
+            $query = $pdo->prepare('INSERT INTO user (username, email, password) VALUES (:username, :email, :password)');
 
-
-    $values = [
-        'username'=> $_POST['username'],
-        'password'=> sha1($_POST['password']),
-        'email'=> $_POST['email']
-    ];
-    $query->execute($values);
-    echo'You have been registered';
-    echo'<li><a href="login.php"> Proceed to login</a></li>';
-
-}
+            $values = [
+                'username' => $_POST['username'],
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // use password_hash() function to hash the password
+                'email' => $_POST['email']
+            ];
+            $query->execute($values);
+            echo 'You have been registered';
+            echo '<li><a href="login.php"> Proceed to login</a></li>';
+        }
+    }
 include './extras/footer.php';
 ?>

@@ -3,26 +3,25 @@ session_start();
 include './extras/header.php';
 include './extras/dbconnect.php'; 
 if (isset($_SESSION['loggedin'])) {
-    echo'<br><a href="categorylist.php"> category Menu</a>';
      ?>
+<main>
 
+<h1>ADD CATEGORY </h1>
+<p style="float:right;"><a href="editCategory.php"> Edit </a></p>
+<p style="float:right;"><a href="deleteCategory.php"> Delete </a></p>
 <form action="addCategory.php" method="POST">
-<label>ID</label> <input type="text" name="categoryId" />
-
-    <label>name</label> <input type="text" name="name" />
+    <label>Category Name</label> <input type="text" name="name" />
 
     <input type="submit" value="add" name="addCategory" />
 </form>
 
 <?php
 if(isset($_POST['addCategory'])){
-    $query = $pdo->prepare('INSERT INTO category(name,categoryId)
-    VALUES( :name, :categoryId)');
+    $query = $pdo->prepare('INSERT INTO category(name)
+    VALUES( :name)');
 
     $values = [
-        'name'=> $_POST['name'],
-        'categoryId'=> $_POST['categoryId']
-    ];
+        'name'=> $_POST['name']    ];
 
     $query->execute($values);
     echo'category sucessfully added';
