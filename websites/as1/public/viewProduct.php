@@ -21,8 +21,8 @@ if(isset($_GET['id'])){
                     <h3>Category: <?php echo $auction['category_name']; ?></h3><br>
                     <h4>Description:</h4><p><?php echo $auction['description']; ?></p><br>
         
-                    <h3>End Date: <?php echo $auction['endDate']; ?></h3>
-                    <h2 style="color:red">Current Bid: <?php echo $auction['highest_bid']; ?></h2>
+                    <h3>End Date: <?php echo $auction['endDate']; ?></h3><br>
+                    <h2 style="color:red">Current Bid:$ <?php echo $auction['highest_bid']; ?></h2>
    
     <form action="bid.php" method="post">
     <label for="bidAmount">Enter Bid Amount:</label>

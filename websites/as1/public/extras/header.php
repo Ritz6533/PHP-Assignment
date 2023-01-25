@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>ibuy Auctions</title>
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="ibuy.css" />
 		
 	</head>
 
